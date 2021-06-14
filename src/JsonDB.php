@@ -20,6 +20,8 @@ class JsonDB implements \Iterator  /*@*/
   private $data;
   private $pos = 0;
 
+  private $buffer;
+
   /*@
 
   */
@@ -72,6 +74,51 @@ class JsonDB implements \Iterator  /*@*/
       $d =& $d[ $k ];
 
     return $d;
+  }
+
+  /*@
+
+  Filter
+
+  function($v, $k) {
+    return ...;
+  }
+  */
+  public function filter( $function )  /*@*/
+  {
+    $r = array_filter( $this->data, $function, ARRAY_FILTER_USE_BOTH);
+    $this->buffer = $r;
+
+    return $r;
+  }
+
+  /*@
+
+  Sort
+
+  by value keep keys
+
+  ˋˋˋ
+  function ($a, $b) {
+
+  -1 $a < $b
+   0 $a = $b
+   1 $a > $b
+  ˋˋˋ
+
+  function($a, $b) {
+    if ($a == $b)
+      return 0;
+    return ($a < $b) ? -1 : 1;
+  }
+  */
+  public function sort( $function )  /*@*/
+  {
+    // TASK: error if buffer empty
+  
+    uasort( $this->buffer, $function);
+
+    return $this->buffer;
   }
 
   /*@
