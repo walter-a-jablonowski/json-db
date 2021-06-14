@@ -31,5 +31,6 @@ print $coin->getVal('0.someval');
 
 Copyright (C) Walter A. Jablonowski 2021, MIT [License](LICENSE)
 
+Licenses of third party software used in samples see [credits](credits.md).
 
 [Privacy](https://walter-a-jablonowski.github.io/privacy.html) | [Legal](https://walter-a-jablonowski.github.io/imprint.html)
