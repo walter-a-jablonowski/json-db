@@ -5,19 +5,22 @@ use WAJ\Lib\Data\JsonDB\JsonDB;
 require '../src/JsonDB.php';
 
 
-$coins = new JsonDB('prices/kucoin_ccxt/BTC-USDT');
+$db = new JsonDB('some/db');
 
-// List table use
+$prices = $db->query('prices.kucoin_ccxt.BTC-USDT')
 
-foreach( $coins as $coin )
-  var_dump( $coin );
+  ->filter( fn($v, $k) => floatval($v['price']) < 50.0 )
+  ->sort( fn($a, $b) => // uses uasort()
+      $a['price'] == $b['price'] ? 0 :
+      $a['price'] <  $b['price'] ? -1 : 1
+    )
+  ->get();
 
-// Use when symbol is key in json (coin data, similar)
-// read could basically also be done using array syntax
+foreach( $prices as $price )
+  var_dump( $price );
 
-$val = 'hmpf';
+// Save
 
-$coins->set('0.someval', $val);
-print $coins->get('0.someval');
+// $db->save('0.someval', 'myval');
 
 ?>

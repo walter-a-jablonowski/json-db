@@ -24,9 +24,38 @@ Information is accessed by a ˋhierarchical.keyˋ. The library will take care of
 
 When key is | ->query() will load
 ----------- | --------------------------
-dir         | all json files in that folder merged
-file        | full file
 json key    | part of file
+file        | full file
+dir         | all json files in that folder merged
+
+
+**Write**
+
+It's quite intuitive use. Detailed behaviour: 
+
+save() will split the given key in parts like ˋfolder.part.file-part.json.partˋ.
+It looks for existing folders and file that might already have data. Behaviour is
+
+When key has             | and json is | ->save() will
+-------------------------|-------------|---------------------------
+existing json key (1)    |             | merge data under key
+existing file name (1)   |             | merge data in file
+existing dir only        | object (2)  | forbidden cause file name missing
+existing dir only        | array       | split data in single files (numeric name)
+existing dir & more keys |             | use first key behind dir as filename
+non-existing key (3) (4) |             | make a new folder and file from key
+
+Comments
+
+- (1) If it has more keys, these will be used as json keys
+- (2) Similar javascript: object = an array with string keys, array = array with numeric keys
+- (3) If you want use some of the keys as json keys call ensureFolder() frist
+      TASK or ensureFile()?
+- (4) If you want split an array in multiple files use a loop and call ˋ->save()ˋ multiple times
+
+DEV
+
+- Do we have a del files func? or just folder?
 
 
 ## Usage
