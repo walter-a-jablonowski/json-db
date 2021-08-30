@@ -2,7 +2,7 @@ desktop.ini
 composer.lock
 vendor/
 mngm/
-try_SAV/
+try_old.php
 README_old.md
 JsonDB_SAV.php
 JsonDB_old.php

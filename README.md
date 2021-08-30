@@ -17,8 +17,9 @@ We ignore the fact that information in file system is organized in files, folder
 all as one big logical tree of information. File and folder names are hierarchical keys that just continue within json files as
 json keys.
 
-Information is accessed by a ˋhierarchical.keyˋ. The library will take care of what needs 2 be loaded.
+Information is accessed by a ˋhierarchical.keyˋ. The library will take care of what needs to be loaded.
 
+So we don't need to deal with how information is organised, we can just use it. If you save new information the library will use a standard behaviour to determine where it should be saved (see below). If you want to have control over the structure in the file system yourself, the only thing you need to do is make some folders and emtpy json files. The library will use existing files. Usage is quite intuitive: `$data = $db->query('things.some_thing')`.
 
 **Read**
 
@@ -30,8 +31,6 @@ dir         | all json files in that folder merged
 
 
 **Write**
-
-It's quite intuitive use. Detailed behaviour: 
 
 save() will split the given key in parts like ˋfolder.part.file-part.json.partˋ.
 It looks for existing folders and file that might already have data. Behaviour is
@@ -63,7 +62,7 @@ DEV
 ```php
 $db = new JsonDB('some/db');
 
-$prices = $db->query('things.some_thing')
+$data = $db->query('things.some.thing')
 
   ->filter( fn($v, $k) => floatval($v['price']) < 50.0 )
   ->sort( fn($a, $b) => // uses uasort()
@@ -72,8 +71,8 @@ $prices = $db->query('things.some_thing')
     )
   ->get();
 
-foreach( $prices as $price )
-  var_dump( $price );
+foreach( $data as $rec )
+  var_dump( $rec );
 
 // Save
 
@@ -89,6 +88,7 @@ $db->save('0.someval', 'myval');
 
 maybe ...
 
+- [ ] When a file contains array and we save obj, we might need solve this in some way
 - [ ] get('first') get(idx) saves some methods: no first()
 - [ ] save('first') save(idx)
 - [ ] delete('last') delete(idx)

@@ -7,7 +7,7 @@ require '../src/JsonDB.php';
 
 $db = new JsonDB('some/db');
 
-$prices = $db->query('things.some_thing')
+$data = $db->query('things.some.thing')
 
   ->filter( fn($v, $k) => floatval($v['price']) < 50.0 )
   ->sort( fn($a, $b) => // uses uasort()
@@ -16,8 +16,8 @@ $prices = $db->query('things.some_thing')
     )
   ->get();
 
-foreach( $prices as $price )
-  var_dump( $price );
+foreach( $data as $rec )
+  var_dump( $rec );
 
 // Save
 

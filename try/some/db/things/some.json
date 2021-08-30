@@ -1,0 +1,9 @@
+{
+  "thing":
+    [
+      {
+        "name":  "a thing",
+        "price": "1.0"
+      }
+    ]
+}
